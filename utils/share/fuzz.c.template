@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+/*INCLUDES*/
+
+#ifndef __AFL_FUZZ_TESTCASE_LEN
+  ssize_t fuzz_len;
+  #define __AFL_FUZZ_TESTCASE_LEN fuzz_len
+  unsigned char fuzz_buf[/*BUFLEN*/];
+  #define __AFL_FUZZ_TESTCASE_BUF fuzz_buf
+  #define __AFL_FUZZ_INIT() void sync(void);
+  #define __AFL_LOOP(x) ((fuzz_len = read(0, fuzz_buf, sizeof(fuzz_buf))) > 0 ? 1 : 0)
+  #define __AFL_INIT() sync()
+#endif
+
+/*TYPES*/
+
+__AFL_FUZZ_INIT();
+
+int main() {
+  /*DECLARATIONS*/
+
+#ifdef __AFL_HAVE_MANUAL_CONTROL
+  __AFL_INIT();
+#endif
+
+  unsigned char *buf = __AFL_FUZZ_TESTCASE_BUF;
+
+  while (__AFL_LOOP(10000)) {
+
+    uint16_t len = (uint16_t)__AFL_FUZZ_TESTCASE_LEN;
+
+    if (len < /*MAXLEN*/) continue;  // check for a required/useful minimum input length
+
+    /* Setup function call, e.g. struct target *tmp = libtarget_init() */
+    /*SETUP*/
+
+    /* Call function to be fuzzed, e.g.: */
+    /*CALL*/
+    
+    /* Reset state. e.g. libtarget_free(tmp) */
+    /*RESET*/
+
+  }
+
+  return 0;
+
+}

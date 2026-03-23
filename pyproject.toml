@@ -1,0 +1,21 @@
+[project]
+name = "excido"
+version = "0.1.0"
+description = "Fuzzing harness generator for C/C++ using Clang AST"
+authors = [
+    {name = "Ian Goforth", email = "ian.goforth@gmail.com"},
+]
+dependencies = [
+    "libclang>=18.1.1",
+]
+requires-python = ">=3.14"
+license = {text = "MIT"}
+
+[dependency-groups]
+dev = [
+    "jinja2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
